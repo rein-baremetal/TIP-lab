@@ -29,10 +29,12 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: ''   # the action's default 'tools' package no longer exists; we install what we need below
       - name: Install NDK and CMake
         run: |
           yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" "ndk;26.1.10909125" "cmake;3.22.1"
+          sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0" "ndk;26.1.10909125" "cmake;3.22.1"
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
